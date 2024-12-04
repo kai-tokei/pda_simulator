@@ -10,7 +10,7 @@ int main()
     vector<PDA> pdas;
     pdas.push_back(read_graph_from_file("./sub.txt"));
 
-    cout << pdas[0].to_str() << endl;
+    cout << pdas[0].to_str();
 
     return 0;
 }
