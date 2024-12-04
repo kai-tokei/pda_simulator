@@ -1,9 +1,10 @@
 #pragma once
 #include <vector>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include "pda.cpp";
+#include "pda.cpp"
 
 using namespace std;
 
@@ -30,10 +31,12 @@ pair<string, string> get_slash_divided_data(string input)
             }
         }
     }
+
+    return pair<string, string>{l, r};
 }
 
 // ファイルからグラフデータを取得する
-vector<PDA> read_graph_from_file(string file_path)
+PDA read_graph_from_file(string file_path)
 {
     ifstream file(file_path); // グラフデータのファイル
     string line;              // 入力行
@@ -78,6 +81,8 @@ vector<PDA> read_graph_from_file(string file_path)
         string r_str = slashed.first, p_str = slashed.second;
 
         // 遷移先を追加
-        pda.add_transition(input, Transition{to, r_str, p_str});
+        pda.add_transition(input, Transition{from, to, r_str, p_str});
     }
+
+    return pda;
 }

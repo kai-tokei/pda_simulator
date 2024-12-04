@@ -27,6 +27,7 @@ Navigation構造体を使い
 // 状態遷移函数
 struct Transition
 {
+    string from;  // 遷移元
     string to;    // 遷移先
     string r_str; // スタックで読み取る記号
     string p_str; // スタックに積む記号
@@ -36,28 +37,46 @@ struct Transition
     {
         return r_str == stack_front;
     }
+
+    bool operator<(const Transition &trans) const
+    {
+        return to > trans.to;
+    }
 };
 
 struct PDA
 {
     // 状態集合Qは、idとしてのみ保持する
-    string q;                           // 現在の状態
-    vector<string> ganma;               // スタック記号集合
-    map<string, set<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
-    string q0;                          // 初期状態
-    string z0;                          // 最初のスタックに記録されるスタック記号
+    string q;                              // 現在の状態
+    vector<string> ganma;                  // スタック記号集合
+    map<string, vector<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
+    string q0;                             // 初期状態
+    string z0;                             // 最初のスタックに記録されるスタック記号
 
     PDA(int _q0, string _z0)
     {
         q0 = _q0;
         z0 = _z0;
-
         q = q0;
     }
 
     // 遷移先を追加する
     void add_transition(string key, Transition transition)
     {
-        delta[key].insert(transition);
+        delta[key].push_back(transition);
+    }
+
+    // シリアライズ
+    string to_str()
+    {
+        string out;
+        for (const auto d : delta)
+        {
+            for (const Transition &t : d.second)
+            {
+                out += d.first + ":" + t.from + ":" + t.to + ":" + t.r_str + "/" + t.p_str + "\n";
+            }
+        }
+        return out;
     }
 };
