@@ -38,4 +38,11 @@ struct PDA
     map<string, set<Transition>> delta; // 状態遷移函数の集合
     string q0;                          // 初期状態
     string z0;                          // 最初のスタックに記録されるスタック記号
+
+    PDA(string _sigma, string _q0, string _z0)
+    {
+        sigma = _sigma;
+        q0 = _q0;
+        z0 = _z0;
+    }
 };
