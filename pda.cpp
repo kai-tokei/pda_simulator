@@ -30,11 +30,18 @@ struct Transition
     string to;    // 遷移先
     string r_str; // スタックで読み取る記号
     string p_str; // スタックに積む記号
+
+    // 遷移可能か
+    bool can_state(string stack_front)
+    {
+        return r_str == stack_front;
+    }
 };
 
 struct PDA
 {
     // 状態集合Qは、idとしてのみ保持する
+    string q;                           // 現在の状態
     vector<string> ganma;               // スタック記号集合
     map<string, set<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
     string q0;                          // 初期状態
@@ -44,6 +51,8 @@ struct PDA
     {
         q0 = _q0;
         z0 = _z0;
+
+        q = q0;
     }
 
     // 遷移先を追加する
