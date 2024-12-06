@@ -45,8 +45,33 @@ struct PDA
     }
 
     // 遷移
-    void trans(string key)
+    // 遷移先の選択は上位層に行ってもらう
+    // つまり、PDAはvectorで管理する
+    bool trans(string key, Transition transition)
     {
+        // 条件に合わないものをカット
+        if (q != transition.from || !transition.can_trans(ganma.back()))
+        {
+            return false;
+        }
+
+        // 状態を更新し、stack
+        q = transition.to;
+
+        // スタック制御
+        if (transition.p_str != "")
+        {
+            if (transition.p_str == "ε")
+            {
+                ganma.pop_back();
+            }
+            else
+            {
+                ganma.push_back(transition.p_str);
+            }
+        }
+
+        return true;
     }
 
     // 遷移先を追加する

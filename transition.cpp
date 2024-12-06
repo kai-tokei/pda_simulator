@@ -12,7 +12,7 @@ struct Transition
     string p_str; // スタックに積む記号
 
     // 遷移可能か
-    bool can_state(string stack_front)
+    bool can_trans(string stack_front)
     {
         return r_str == stack_front;
     }

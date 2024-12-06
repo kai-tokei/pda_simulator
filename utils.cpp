@@ -98,6 +98,12 @@ PDA read_graph_from_file(string file_path)
         // スタックに関する記号
         string r_str = slashed.first, p_str = slashed.second;
 
+        // スタックしない遷移の設定
+        if (r_str == p_str)
+        {
+            p_str = "";
+        }
+
         // 遷移先を追加
         pda.add_transition(input, Transition{from, to, r_str, p_str});
     }
