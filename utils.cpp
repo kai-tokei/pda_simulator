@@ -58,7 +58,7 @@ PDA read_graph_from_file(string file_path)
     string line;              // 入力行
 
     int N;               // 状態集合の数
-    int q0;              // 初期状態のid
+    string q0;           // 初期状態のid
     string z0;           // 初期スタック記号
     set<int> acceptance; // 受理する頂点の番号
 
@@ -68,7 +68,7 @@ PDA read_graph_from_file(string file_path)
 
     // 初期状態を取得
     getline(file, line);
-    q0 = stoi(line);
+    q0 = line;
 
     // 初期スタック記号を取得
     getline(file, line);
@@ -97,12 +97,6 @@ PDA read_graph_from_file(string file_path)
 
         // スタックに関する記号
         string r_str = slashed.first, p_str = slashed.second;
-
-        // スタックしない遷移の設定
-        if (r_str == p_str)
-        {
-            p_str = "";
-        }
 
         // 遷移先を追加
         pda.add_transition(input, Transition{from, to, r_str, p_str});

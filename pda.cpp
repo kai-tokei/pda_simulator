@@ -32,31 +32,24 @@ struct PDA
     string q;                              // 現在の状態
     vector<string> ganma;                  // スタック記号集合
     map<string, vector<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
-    string q0;                             // 初期状態
-    string z0;                             // 最初のスタックに記録されるスタック記号
     set<int> acceptance;                   // 受理するオートマトン
     vector<string> log;                    // 遷移の記録
 
-    PDA(int _q0, string _z0, set<int> _acceptance)
+    PDA(string _q0, string _z0, set<int> _acceptance)
     {
-        q0 = _q0;
-        z0 = _z0;
-        q = q0;
-        ganma.push_back(q0);
-        log.push_back("Q,sigma,delta,ganma,");
+        q = _q0;
+        ganma.push_back(_z0);
     }
 
-    // 遷移
-    // 遷移先の選択は上位層に行ってもらう
-    // つまり、PDAはvectorで管理する
-    bool trans(string key, Transition transition)
+    // 遷移可能かどうか
+    bool can_trans(string key, Transition transition)
     {
-        // 条件に合わないものをカット
-        if (q != transition.from || !transition.can_trans(ganma.back()))
-        {
-            return false;
-        }
+        return (q == transition.from) && (transition.r_str == ganma.back());
+    }
 
+    // 遷移先の選択は上位層に行ってもらう
+    void trans(string key, Transition transition)
+    {
         // 状態を更新し、stack
         q = transition.to;
 
@@ -81,8 +74,6 @@ struct PDA
             record += v + ",";
         }
         log.push_back(record);
-
-        return true;
     }
 
     // 遷移先を追加する
@@ -95,6 +86,8 @@ struct PDA
     string to_str()
     {
         string out;
+        out += q + "\n";
+        out += ganma.back() + "\n";
         for (const auto d : delta)
         {
             for (const Transition &t : d.second)
