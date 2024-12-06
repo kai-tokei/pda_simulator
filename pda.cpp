@@ -35,14 +35,15 @@ struct PDA
     string q0;                             // 初期状態
     string z0;                             // 最初のスタックに記録されるスタック記号
     set<int> acceptance;                   // 受理するオートマトン
+    vector<string> log;                    // 遷移の記録
 
     PDA(int _q0, string _z0, set<int> _acceptance)
     {
         q0 = _q0;
         z0 = _z0;
         q = q0;
-        acceptance = _acceptance;
         ganma.push_back(q0);
+        log.push_back("Q,sigma,delta,ganma,");
     }
 
     // 遷移
@@ -71,6 +72,15 @@ struct PDA
                 ganma.push_back(transition.p_str);
             }
         }
+
+        // 記録をとる
+        string record = "";
+        record += q + "," + key + "," + transition.to + ",";
+        for (const string &v : ganma)
+        {
+            record += v + ",";
+        }
+        log.push_back(record);
 
         return true;
     }
