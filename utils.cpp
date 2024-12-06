@@ -82,7 +82,7 @@ PDA read_graph_from_file(string file_path)
         acceptance.insert(stoi(v));
     }
 
-    PDA pda(q0, z0); // プッシュダウンオートマトンのインスタンス
+    PDA pda(q0, z0, acceptance); // プッシュダウンオートマトンのインスタンス
 
     while (getline(file, line))
     {

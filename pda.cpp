@@ -36,11 +36,12 @@ struct PDA
     string z0;                             // 最初のスタックに記録されるスタック記号
     set<int> acceptance;                   // 受理するオートマトン
 
-    PDA(int _q0, string _z0)
+    PDA(int _q0, string _z0, set<int> _acceptance)
     {
         q0 = _q0;
         z0 = _z0;
         q = q0;
+        acceptance = _acceptance;
         ganma.push_back(q0);
     }
 
