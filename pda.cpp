@@ -34,12 +34,19 @@ struct PDA
     map<string, vector<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
     string q0;                             // 初期状態
     string z0;                             // 最初のスタックに記録されるスタック記号
+    set<int> acceptance;                   // 受理するオートマトン
 
     PDA(int _q0, string _z0)
     {
         q0 = _q0;
         z0 = _z0;
         q = q0;
+        ganma.push_back(q0);
+    }
+
+    // 遷移
+    void trans(string key)
+    {
     }
 
     // 遷移先を追加する

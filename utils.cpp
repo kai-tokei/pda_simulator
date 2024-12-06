@@ -35,15 +35,32 @@ pair<string, string> get_slash_divided_data(string input)
     return pair<string, string>{l, r};
 }
 
+// keyを元に文字列を分割する
+vector<string> divide_string(string line, char divider)
+{
+    stringstream ss(line);
+    vector<string> vals;
+    string s;
+
+    // コロンで入力文字列を分割する
+    while (getline(ss, s, ':'))
+    {
+        vals.push_back(s);
+    }
+
+    return vals;
+}
+
 // ファイルからグラフデータを取得する
 PDA read_graph_from_file(string file_path)
 {
     ifstream file(file_path); // グラフデータのファイル
     string line;              // 入力行
 
-    int N;     // 状態集合の数
-    int q0;    // 初期状態のid
-    string z0; // 初期スタック記号
+    int N;               // 状態集合の数
+    int q0;              // 初期状態のid
+    string z0;           // 初期スタック記号
+    set<int> acceptance; // 受理する頂点の番号
 
     // 状態集合の数を取得する
     getline(file, line);
@@ -57,19 +74,20 @@ PDA read_graph_from_file(string file_path)
     getline(file, line);
     z0 = line;
 
+    // 受理する頂点の番号を取得
+    getline(file, line);
+    vector<string> node_number = divide_string(line, ',');
+    for (const auto &v : node_number)
+    {
+        acceptance.insert(stoi(v));
+    }
+
     PDA pda(q0, z0); // プッシュダウンオートマトンのインスタンス
 
     while (getline(file, line))
     {
-        stringstream ss(line);
-        vector<string> vals;
-        string s;
-
-        // コロンで入力文字列を分割する
-        while (getline(ss, s, ':'))
-        {
-            vals.push_back(s);
-        }
+        // コロンで文字列を分割
+        vector<string> vals = divide_string(line, ':');
 
         string input = vals[0]; // 入力記号
         string from = vals[1];  // 遷移元
