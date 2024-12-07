@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
             for (const Transition &t : pdas[i].delta[string{v}])
             {
                 // 遷移する
-                if (pdas[i].can_trans(to_string(v), t))
+                if (pdas[i].can_trans(t))
                 {
                     PDA p = pdas[i];
                     p.trans(string{v}, t);

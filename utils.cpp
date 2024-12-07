@@ -58,7 +58,7 @@ PDA read_graph_from_file(string file_path)
     string line;              // 入力行
 
     int N;               // 状態集合の数
-    string q0;           // 初期状態のid
+    int q0;              // 初期状態のid
     string z0;           // 初期スタック記号
     set<int> acceptance; // 受理する頂点の番号
 
@@ -68,7 +68,7 @@ PDA read_graph_from_file(string file_path)
 
     // 初期状態を取得
     getline(file, line);
-    q0 = line;
+    q0 = stoi(line);
 
     // 初期スタック記号を取得
     getline(file, line);
@@ -89,9 +89,9 @@ PDA read_graph_from_file(string file_path)
         // コロンで文字列を分割
         vector<string> vals = divide_string(line, ':');
 
-        string input = vals[0]; // 入力記号
-        string from = vals[1];  // 遷移元
-        string to = vals[2];    // 遷移先
+        string input = vals[0];   // 入力記号
+        int from = stoi(vals[1]); // 遷移元
+        int to = stoi(vals[2]);   // 遷移先
 
         pair<string, string> slashed = get_slash_divided_data(vals[3]);
 

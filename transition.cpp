@@ -6,8 +6,8 @@ using namespace std;
 // 状態遷移函数
 struct Transition
 {
-    string from;  // 遷移元
-    string to;    // 遷移先
+    int from;     // 遷移元
+    int to;       // 遷移先
     string r_str; // スタックで読み取る記号
     string p_str; // スタックに積む記号
 

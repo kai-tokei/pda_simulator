@@ -29,20 +29,20 @@ Navigation構造体を使い
 struct PDA
 {
     // 状態集合Qは、idとしてのみ保持する
-    string q;                              // 現在の状態
+    int q;                                 // 現在の状態
     vector<string> ganma;                  // スタック記号集合
     map<string, vector<Transition>> delta; // 状態遷移函数の集合(入力記号:それに関する状態遷移函数)
     set<int> acceptance;                   // 受理するオートマトン
     vector<string> log;                    // 遷移の記録
 
-    PDA(string _q0, string _z0, set<int> _acceptance)
+    PDA(int _q0, string _z0, set<int> _acceptance)
     {
         q = _q0;
         ganma.push_back(_z0);
     }
 
     // 遷移可能かどうか
-    bool can_trans(string key, Transition transition)
+    bool can_trans(Transition transition)
     {
         return (q == transition.from) && (transition.r_str == ganma.back());
     }
@@ -68,7 +68,7 @@ struct PDA
 
         // 記録をとる
         string record = "";
-        record += q + "," + key + "," + transition.to + ",";
+        record += q + "," + key + "," + to_string(transition.to) + ",";
         for (const string &v : ganma)
         {
             record += v + ",";
@@ -92,7 +92,7 @@ struct PDA
         {
             for (const Transition &t : d.second)
             {
-                out += d.first + ":" + t.from + ":" + t.to + ":" + t.r_str + "/" + t.p_str + "\n";
+                out += d.first + ":" + to_string(t.from) + ":" + to_string(t.to) + ":" + t.r_str + "/" + t.p_str + "\n";
             }
         }
         return out;
