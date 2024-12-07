@@ -68,7 +68,7 @@ struct PDA
 
         // 記録をとる
         string record = "";
-        record += q + "," + key + "," + to_string(transition.to) + ",";
+        record += to_string(q) + "," + key + "," + to_string(transition.to) + ",";
         for (const string &v : ganma)
         {
             record += v + ",";
