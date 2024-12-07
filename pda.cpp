@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include <vector>
 #include <set>
 #include <map>
@@ -44,7 +45,14 @@ struct PDA
     // 遷移可能かどうか
     bool can_trans(Transition transition)
     {
+        cout << ((q == transition.from) && (transition.r_str == ganma.back())) << " " << ganma.back() << endl;
         return (q == transition.from) && (transition.r_str == ganma.back());
+    }
+
+    // 受理したかどうか
+    bool check_accpetance()
+    {
+        return acceptance.count(q);
     }
 
     // 遷移先の選択は上位層に行ってもらう
@@ -56,7 +64,7 @@ struct PDA
         // スタック制御
         if (transition.p_str != "")
         {
-            if (transition.p_str == "ε")
+            if (transition.p_str == "e")
             {
                 ganma.pop_back();
             }

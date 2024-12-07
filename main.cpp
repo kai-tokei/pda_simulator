@@ -23,11 +23,16 @@ int main(int argc, char *argv[])
 
     // 入力列を読み込み
     string input = argv[2];
+    input += "e";
+
+    // 受理したかどうか
+    bool is_accepted = false;
 
     // オートマトンを実行
     for (const char &v : input)
     {
         vector<PDA> next_pdas;
+        is_accepted = false;
         for (int i = 0; i < pdas.size(); i++)
         {
             for (const Transition &t : pdas[i].delta[string{v}])
@@ -37,20 +42,23 @@ int main(int argc, char *argv[])
                 {
                     PDA p = pdas[i];
                     p.trans(string{v}, t);
+                    is_accepted = p.check_accpetance();
                     next_pdas.push_back(p);
                 }
             }
-            if (pdas[i].delta.count("ε"))
+            if (pdas[i].delta.count("e"))
             {
-                for (const Transition &t : pdas[i].delta["ε"])
+                for (const Transition &t : pdas[i].delta["e"])
                 {
                     // 遷移する
                     if (pdas[i].can_trans(t))
                     {
                         PDA p = pdas[i];
                         p.trans(string{v}, t);
+                        is_accepted = p.check_accpetance();
                         next_pdas.push_back(p);
                     }
+                    cout << "Check" << endl;
                 }
             }
         }
@@ -66,6 +74,9 @@ int main(int argc, char *argv[])
 
         pdas = next_pdas;
     }
+
+    cout << (is_accepted ? "Accepted" : "Rejected") << endl;
+    file << (is_accepted ? "Accepted" : "Rejected") << endl;
 
     return 0;
 }
