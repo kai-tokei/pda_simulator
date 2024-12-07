@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
                 {
                     PDA p = pdas[i];
                     p.trans(string{v}, t);
-                    is_accepted = p.check_accpetance();
+                    is_accepted += p.check_accpetance();
                     next_pdas.push_back(p);
                 }
             }
@@ -55,10 +55,9 @@ int main(int argc, char *argv[])
                     {
                         PDA p = pdas[i];
                         p.trans(string{v}, t);
-                        is_accepted = p.check_accpetance();
+                        is_accepted += p.check_accpetance();
                         next_pdas.push_back(p);
                     }
-                    cout << "Check" << endl;
                 }
             }
         }

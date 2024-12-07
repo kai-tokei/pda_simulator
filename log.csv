@@ -1,11 +1,31 @@
 Q,sigma,delta,ganma,
 0,a,0,Z:A:
 
-1,#,1,Z:A:
+0,a,0,Z:A:A:
+
+0,a,0,Z:A:A:A:
+
+0,b,0,Z:A:A:A:B:
+
+0,b,0,Z:A:A:A:B:B:
+
+0,a,0,Z:A:A:A:B:B:A:
+
+1,#,1,Z:A:A:A:B:B:A:
+
+1,a,1,Z:A:A:A:B:B:
+
+1,b,1,Z:A:A:A:B:
+
+1,b,1,Z:A:A:A:
+
+1,a,1,Z:A:A:
+
+1,a,1,Z:A:
 
 1,a,1,Z:
 
 2,e,2,
 2,e,2,
 
-Rejected
+Accepted

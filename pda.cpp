@@ -40,12 +40,13 @@ struct PDA
     {
         q = _q0;
         ganma.push_back(_z0);
+        acceptance = _acceptance;
     }
 
     // 遷移可能かどうか
     bool can_trans(Transition transition)
     {
-        cout << ((q == transition.from) && (transition.r_str == ganma.back())) << " " << ganma.back() << endl;
+        // cout << ((q == transition.from) && (transition.r_str == ganma.back())) << " " << ganma.back() << endl;
         return (q == transition.from) && (transition.r_str == ganma.back());
     }
 
