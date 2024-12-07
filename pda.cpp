@@ -71,7 +71,7 @@ struct PDA
         record += to_string(q) + "," + key + "," + to_string(transition.to) + ",";
         for (const string &v : ganma)
         {
-            record += v + ",";
+            record += v + ":";
         }
         log.push_back(record);
     }
